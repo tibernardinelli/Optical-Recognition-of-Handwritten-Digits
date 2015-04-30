@@ -4,6 +4,11 @@ import java.util.List;
 
 public class Exemplo {
 	
+	/*
+		formatação do conjunto em atributos descritivos e atributo de classe:
+		Os atributos descritivos estão dentro do mapa valores e o de classe dentro da propriedade classe.
+	*/
+	
 	private Map<Integer, Double> valores;
 	private double classe;
 	
