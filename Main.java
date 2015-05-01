@@ -62,7 +62,7 @@ public class Main{
 			RNA rna = new RNA(temp.getNumeroPropriedades(), numeroNeuroniosCamadaEscondida, 9);
 			// FIM EXECUÇÃO
 			Duration duracao = Duration.between(inicio, Instant.now());
-			System.out.println(String.format("%d em %d", exemplos.size(), duracao.toMillis()));
+			System.out.println(String.format("tempo total: %d em %d", exemplos.size(), duracao.toMillis()));
 		} catch(IOException e) {
 			System.err.println("Nome do arquivo errado");
 			throw new RuntimeException(e.toString());
