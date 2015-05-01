@@ -11,7 +11,7 @@ public abstract class Leitor {
 	public static List<Exemplo> obterExemplos(Path path) throws IOException{
 		List<String> temp = Files.readAllLines(path);
 		
-		final List<Exemplo> lista =
+		return
 			temp.stream().map(linha -> {
 				Double[] parametros = 
 					Arrays.stream(linha.split(","))
@@ -19,6 +19,6 @@ public abstract class Leitor {
 						.toArray(Double[]::new);
 				return new Exemplo(parametros[parametros.length - 1], Arrays.copyOfRange(parametros, 0, parametros.length - 2));
 			}).collect(Collectors.toList());
-		return lista;	
+		
 	}
 }

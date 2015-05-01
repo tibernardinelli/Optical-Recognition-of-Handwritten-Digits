@@ -4,7 +4,8 @@ import java.util.List;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
-
+import java.util.Collections;
+import java.util.Random;
 /**
 	javac Main.java
 	java Main data/optdigits.tra data/optdigits.tra data/optdigits.tra 0.1 3 3 False
@@ -44,6 +45,7 @@ public class Main{
 			numeroNeuroniosClasse = Integer.parseInt(args[5]);
 			
 			estrategiaInicializacaoPesos = Boolean.parseBoolean(args[6]);
+			InicializadorPesosFactory.init(estrategiaInicializacaoPesos);
 		} catch (Exception e){
 			e.printStackTrace();
 			throw new IllegalArgumentException(e.toString());
@@ -51,8 +53,14 @@ public class Main{
 		List<Exemplo> exemplos;
 		try {
 			Instant inicio = Instant.now();
+			 
+			// EXECUÇÃO.
 			exemplos = Leitor.obterExemplos(caminhoTreino);
 			Exemplo.normalizadorZScore(exemplos);
+			Collections.shuffle(exemplos, new Random());
+			Exemplo temp = exemplos.get(0);
+			RNA rna = new RNA(temp.getNumeroPropriedades(), numeroNeuroniosCamadaEscondida, 9);
+			// FIM EXECUÇÃO
 			Duration duracao = Duration.between(inicio, Instant.now());
 			System.out.println(String.format("%d em %d", exemplos.size(), duracao.toMillis()));
 		} catch(IOException e) {
