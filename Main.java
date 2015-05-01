@@ -55,9 +55,23 @@ public class Main{
 			Instant inicio = Instant.now();
 			 
 			// EXECUÇÃO.
+			//	1. leitura;
 			exemplos = Leitor.obterExemplos(caminhoTreino);
+			//	2. Normaliza;áo
 			Exemplo.normalizadorZScore(exemplos);
+			//	3. holdout
 			Collections.shuffle(exemplos, new Random());
+			EstrategiaTeste holdout = null;
+			holdout.divide(exemplos);
+			double erro = 100.0;
+			int execucaoNr = 1;
+			do {
+				erro = holdout.epoca();
+				System.out.println(String.format("Epoca %d com erro %f", execucaoNr, erro));
+				execucaoNr++;
+			}
+			while (erro > 10)
+			
 			Exemplo temp = exemplos.get(0);
 			RNA rna = new RNA(temp.getNumeroPropriedades(), numeroNeuroniosCamadaEscondida, 9);
 			// FIM EXECUÇÃO
