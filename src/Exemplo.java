@@ -42,6 +42,10 @@ public class Exemplo {
 		return valores.get(indice);
 	}
 	
+	public Double[] getValores(){
+		return valores.resultSet();
+	}
+	
 	public void setClasse(double classe){
 		this.classe = classe;
 	}

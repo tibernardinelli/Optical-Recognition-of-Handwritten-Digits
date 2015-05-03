@@ -61,8 +61,8 @@ public class Main{
 			Exemplo.normalizadorZScore(exemplos);
 			//	3. holdout
 			Collections.shuffle(exemplos, new Random());
-			EstrategiaTeste holdout = null;
-			holdout.divide(exemplos);
+			EstrategiaTeste holdout = new Holdout();
+			holdout.divideMassa(exemplos);
 			double erro = 100.0;
 			int execucaoNr = 1;
 			do {
@@ -70,7 +70,7 @@ public class Main{
 				System.out.println(String.format("Epoca %d com erro %f", execucaoNr, erro));
 				execucaoNr++;
 			}
-			while (erro > 10)
+			while (erro > 10);
 			
 			Exemplo temp = exemplos.get(0);
 			RNA rna = new RNA(temp.getNumeroPropriedades(), numeroNeuroniosCamadaEscondida, 9);
