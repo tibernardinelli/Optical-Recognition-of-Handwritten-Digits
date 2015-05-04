@@ -37,6 +37,6 @@ public class Holdout implements EstrategiaTeste{
 			}
 			erroTotalRede += erroExemplo;	
 		}
-		return 0.0d;
+		return erroTotalRede;
 	}
 }
