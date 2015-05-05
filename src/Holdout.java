@@ -12,9 +12,9 @@ public class Holdout implements EstrategiaTeste{
 	
 	
 	public void divideMassa(List<Exemplo> exemplos){
-		int size = tuples.size() / 3;
-		List<Exemplo> subListaTeste = tuples.subList(0, size - 1);
-		List<Exemplo> subListaExercicio = tuples.subList(size, tuples.size() - 1);
+		int size = exemplos.size() / 3;
+		List<Exemplo> subListaTeste = exemplos.subList(0, size - 1);
+		List<Exemplo> subListaExercicio = exemplos.subList(size, exemplos.size() - 1);
 	}
 	
 	public double epoca(){

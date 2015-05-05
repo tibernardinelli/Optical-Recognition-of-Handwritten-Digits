@@ -12,15 +12,15 @@ import java.util.Random;
 **/
 public class Main{
 	public static void main(String[] args){
-		if (args.length != 7) {
+		if (args.length != 8) {
 			System.out.println(String.format("Argumentos esperados: \n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s", 
 				"nome do arquivo do conjunto de dados de treino",
 				"nome do arquivo do conjunto de dados de valida ̧c ̃ao",
 				"nome do arquivo do conjunto de dados de teste",
 				"taxa de aprendizado inicial",
-				"nu ́mero de neurˆonios na cada escondida (para a rede MLP)",
-				"nu ́mero de neur ́onios para cada classe (para a rede LVQ)",
-				"inicializa ̧c ̃ao de pesos (zero/aleato ́ria, True/False)"
+				"número de neurônios na cada escondida (para a rede MLP)",
+				"nú́mero de neurônios para cada classe (para a rede LVQ)",
+				"inicialização de pesos (zero/aleató́ria, True/False)"
 			));
 			return;
 		}
@@ -32,7 +32,7 @@ public class Main{
 		int numeroNeuroniosCamadaEscondida;
 		int numeroNeuroniosClasse;
 		boolean estrategiaInicializacaoPesos;
-		 
+		boolean rnaTrueLvqFalse;
 		try {
 			caminhoTreino = Paths.get(args[0]);
 			caminhoValidacao = Paths.get(args[1]);
@@ -43,6 +43,7 @@ public class Main{
 			numeroNeuroniosCamadaEscondida = Integer.parseInt(args[4]);
 			
 			numeroNeuroniosClasse = Integer.parseInt(args[5]);
+			rnaTrueLvqFalse = numeroNeuroniosCamadaEscondida != 0 && numeroNeuroniosClasse = 0;
 			
 			estrategiaInicializacaoPesos = Boolean.parseBoolean(args[6]);
 			InicializadorPesosFactory.init(estrategiaInicializacaoPesos);
@@ -59,7 +60,15 @@ public class Main{
 			exemplos = Leitor.obterExemplos(caminhoTreino);
 			//	2. Normaliza;áo
 			Exemplo.normalizadorZScore(exemplos);
-			//	3. holdout
+			// 3. Configuração da rede.
+			Exemplo temp = exemplos.get(0);
+			RNA rna = null;
+			
+			if (rnaTrueLvqFalse)
+				rna = new MultilayerPerceptron(temp.getNumeroPropriedades(), numeroNeuroniosCamadaEscondida, 9);
+			else 
+				rna = new LearningVectorQuantization();
+			//	4. holdout
 			Collections.shuffle(exemplos, new Random());
 			EstrategiaTeste holdout = new Holdout();
 			holdout.divideMassa(exemplos);
@@ -72,8 +81,7 @@ public class Main{
 			}
 			while (erro > 10);
 			
-			Exemplo temp = exemplos.get(0);
-			RNA rna = new RNA(temp.getNumeroPropriedades(), numeroNeuroniosCamadaEscondida, 9);
+			
 			// FIM EXECUÇÃO
 			Duration duracao = Duration.between(inicio, Instant.now());
 			System.out.println(String.format("tempo total: %d em %d", exemplos.size(), duracao.toMillis()));
