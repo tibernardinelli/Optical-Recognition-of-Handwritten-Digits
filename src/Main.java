@@ -1,10 +1,10 @@
-import java.nio.file.Paths;
-import java.nio.file.Path;
-import java.util.List;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 /**
 	javac Main.java
@@ -43,7 +43,7 @@ public class Main{
 			numeroNeuroniosCamadaEscondida = Integer.parseInt(args[4]);
 			
 			numeroNeuroniosClasse = Integer.parseInt(args[5]);
-			rnaTrueLvqFalse = numeroNeuroniosCamadaEscondida != 0 && numeroNeuroniosClasse = 0;
+			rnaTrueLvqFalse = numeroNeuroniosCamadaEscondida != 0 && numeroNeuroniosClasse == 0;
 			
 			estrategiaInicializacaoPesos = Boolean.parseBoolean(args[6]);
 			InicializadorPesosFactory.init(estrategiaInicializacaoPesos);
@@ -65,12 +65,12 @@ public class Main{
 			RNA rna = null;
 			
 			if (rnaTrueLvqFalse)
-				rna = new MultilayerPerceptron(temp.getNumeroPropriedades(), numeroNeuroniosCamadaEscondida, 9);
+				rna = new MultilayerPerceptron(taxaAprendizadoInicial, temp.getNumeroPropriedades(), numeroNeuroniosCamadaEscondida, 9);
 			else 
 				rna = new LearningVectorQuantization();
 			//	4. holdout
 			Collections.shuffle(exemplos, new Random());
-			EstrategiaTeste holdout = new Holdout();
+			EstrategiaTeste holdout = new Holdout(rna);
 			holdout.divideMassa(exemplos);
 			double erro = 100.0;
 			int execucaoNr = 1;

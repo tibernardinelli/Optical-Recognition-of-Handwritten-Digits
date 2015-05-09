@@ -43,7 +43,7 @@ public class Exemplo {
 	}
 	
 	public Double[] getValores(){
-		return valores.resultSet();
+		return valores.values().toArray(new Double[10]);
 	}
 	
 	public void setClasse(double classe){
