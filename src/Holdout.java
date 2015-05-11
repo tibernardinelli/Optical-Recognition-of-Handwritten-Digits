@@ -51,7 +51,8 @@ public class Holdout implements EstrategiaTeste{
 			}
 			erroTotalRede += erroExemplo;	
 		}
-		System.out.println(String.format("Acertos da época = %d", acertos));
-		return erroTotalRede;
+		System.out.println(String.format("Acertos da época = %d de  %d", acertos, subListaTeste.size()));
+		//return erroTotalRede;
+		return (1.0 - (acertos/subListaTeste.size())) * 100.0; /// subListaTeste.size();
 	}
 }

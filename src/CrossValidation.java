@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CrossValidation{
+public class CrossValidation implements EstrategiaTeste{
 	
 	private Map<Integer, KFold> exemplosPorKFold;
 	private RNA rna;
@@ -29,11 +29,12 @@ public class CrossValidation{
 	
 	//retorna erro a cada época executada;
 	public double epoca(){
-		double erroTotalRede = 0d;
+		double erroTotalRede = 0d;		
 		for (KFold kfold: exemplosPorKFold.values()){
 			for (Exemplo e: kfold.getConjuntoTreinamento()){
 				rna.treinarRede(e);
 			}
+			int acertos = 0;
 			for (Exemplo e: kfold.getConjuntoTeste()){
 				double erroExemplo = 0d;
 			
@@ -44,11 +45,25 @@ public class CrossValidation{
 				Arrays.fill(resultadoEsperado, 0d);
 				resultadoEsperado[classe.intValue()] = 1.0d;	
 				
+				Double maior = Double.MIN_VALUE;
+				int maiorIndice = -1;
+				for (int i = 0; i < resultadoObtido.length; i++)
+					if (resultadoObtido[i] > maior){
+						maiorIndice = i;
+						maior = resultadoObtido[i];
+					}
+				
+				if (maiorIndice == classe.intValue())
+					acertos ++;
+				
+				//System.out.println(String.format("indice esperado: %f, indice obtido %d com valor %f | acertos: %d", classe, maiorIndice, maior, acertos));
+				
 				for (int i = 0; i < resultadoObtido.length; i++){
 					erroExemplo += Math.pow(resultadoEsperado[i] - resultadoObtido[i], 2);
 				}
 				erroTotalRede += erroExemplo;	
 			}
+			System.out.println(String.format("Acertos da época = %d de  %d", acertos, kfold.getConjuntoTeste().size()));
 		}
 		return erroTotalRede;
 	}

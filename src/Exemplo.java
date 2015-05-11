@@ -9,7 +9,9 @@ public class Exemplo {
 		Os atributos descritivos estão dentro do mapa valores e o de classe dentro da propriedade classe.
 	*/
 	
+	//Índice x Atributos Descritivos
 	private Map<Integer, Double> valores;
+	//Atributo de classe;
 	private double classe;
 	
 	public Exemplo(){
@@ -84,11 +86,11 @@ public class Exemplo {
 				e.setValor(i, novoValor);
 			}
 		}
-		for(Exemplo e: exemplos){
-			for (int i = 0; i < e.getNumeroPropriedades(); i ++ ){
-				System.out.print(String.format("%f\t", e.getValor(i)));
-			}
-			System.out.print("\n");
-		}
+//		for(Exemplo e: exemplos){
+//			for (int i = 0; i < e.getNumeroPropriedades(); i ++ ){
+//				System.out.print(String.format("%f\t", e.getValor(i)));
+//			}
+//			System.out.print("\n");
+//		}
 	}
 }
