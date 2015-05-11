@@ -69,7 +69,7 @@ public class MultilayerPerceptron implements RNA{
 				for (int i = 0; i < weights.length; i++) {
 					net += inputs[i] * weights[i];
 				}
-				saida[neuronio] = 1 / (1 + Math.exp(-net));
+				saida[neuronio] = 1.0 / (1.0 + Math.exp(-net));
 			}
 			return saida;
 		}

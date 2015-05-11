@@ -43,7 +43,7 @@ public class Exemplo {
 	}
 	
 	public Double[] getValores(){
-		return valores.values().toArray(new Double[10]);
+		return valores.values().toArray(new Double[valores.values().size()]);
 	}
 	
 	public void setClasse(double classe){
@@ -65,6 +65,9 @@ public class Exemplo {
 			for (Exemplo e: exemplos){
 				somatoria += e.getValor(i);
 			}
+			if (somatoria == 0.0)
+				continue;
+			
 			double media = somatoria / exemplos.size();
 			//Calculo da variancia;
 			Double variancia = 0.0;
@@ -80,6 +83,12 @@ public class Exemplo {
 				Double novoValor = (valorAtual - media) / desvioPadrao;
 				e.setValor(i, novoValor);
 			}
+		}
+		for(Exemplo e: exemplos){
+			for (int i = 0; i < e.getNumeroPropriedades(); i ++ ){
+				System.out.print(String.format("%f\t", e.getValor(i)));
+			}
+			System.out.print("\n");
 		}
 	}
 }

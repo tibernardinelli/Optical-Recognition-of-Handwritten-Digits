@@ -1,1 +1,1 @@
-java bin/Main
+data/optdigits.tra data/optdigits.tes data/optdigits.tes 1 10 0 true

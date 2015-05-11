@@ -12,7 +12,7 @@ import java.util.Random;
 **/
 public class Main{
 	public static void main(String[] args){
-		if (args.length != 8) {
+		if (args.length != 7) {
 			System.out.println(String.format("Argumentos esperados: \n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s", 
 				"nome do arquivo do conjunto de dados de treino",
 				"nome do arquivo do conjunto de dados de valida ̧c ̃ao",
@@ -58,16 +58,17 @@ public class Main{
 			// EXECUÇÃO.
 			//	1. leitura;
 			exemplos = Leitor.obterExemplos(caminhoTreino);
-			//	2. Normaliza;áo
+			//	2. Normalizaçáo
 			Exemplo.normalizadorZScore(exemplos);
 			// 3. Configuração da rede.
 			Exemplo temp = exemplos.get(0);
 			RNA rna = null;
 			
 			if (rnaTrueLvqFalse)
-				rna = new MultilayerPerceptron(taxaAprendizadoInicial, temp.getNumeroPropriedades(), numeroNeuroniosCamadaEscondida, 9);
+				rna = new MultilayerPerceptron(taxaAprendizadoInicial, temp.getNumeroPropriedades(), numeroNeuroniosCamadaEscondida, 10 );
 			else 
 				rna = new LearningVectorQuantization();
+			
 			//	4. holdout
 			Collections.shuffle(exemplos, new Random());
 			EstrategiaTeste holdout = new Holdout(rna);
